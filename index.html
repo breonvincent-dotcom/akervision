@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101010" />
+    <title>Vincent Breon — Photographe</title>
+    <meta
+      name="description"
+      content="Portfolio de photographie sportive : hockey, tennis, MMA, basket et football. Prestations photo et tirages sur mesure."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      /* Adaptations responsive, en complément du style.css existant */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      img {
+        max-width: 100%;
+      }
+      .gallery-item[hidden] {
+        display: none !important;
+      }
+      .gallery {
+        scroll-margin-top: 88px;
+      }
+      .gallery-item {
+        min-width: 0;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .gallery-item img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .filter {
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .lightbox {
+        max-width: min(1100px, 96vw);
+        max-height: 94dvh;
+      }
+      .lightbox img {
+        max-width: 100%;
+        max-height: 76dvh;
+        object-fit: contain;
+      }
+      @media (max-width: 1024px) {
+        .site-header,
+        .intro,
+        .about,
+        .portfolio,
+        .services,
+        .contact,
+        footer {
+          padding-left: 5vw;
+          padding-right: 5vw;
+        }
+        .about {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+          gap: 28px;
+        }
+        .gallery {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 14px;
+        }
+        .gallery-item {
+          width: 100%;
+          aspect-ratio: 4 / 5;
+        }
+        .gallery-item img {
+          width: 100%;
+          height: 100%;
+        }
+        .services {
+          gap: 28px;
+        }
+      }
+      @media (max-width: 700px) {
+        .site-header,
+        .intro,
+        .about,
+        .portfolio,
+        .services,
+        .contact,
+        footer {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        .site-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          position: relative;
+          z-index: 20;
+        }
+        .site-header .wordmark {
+          min-width: 0;
+        }
+        .site-header .menu-toggle {
+          display: inline-flex !important;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+        .site-header nav {
+          display: none !important;
+          flex-basis: 100%;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding: 14px 0;
+        }
+        .site-header.open nav {
+          display: flex !important;
+        }
+        .site-header nav a {
+          display: block;
+          padding: 13px 4px;
+        }
+        .intro {
+          min-height: auto;
+          padding-top: 76px;
+          padding-bottom: 76px;
+        }
+        .intro h1 {
+          font-size: clamp(2.7rem, 12vw, 5rem);
+          line-height: 1.02;
+          overflow-wrap: anywhere;
+        }
+        .intro-index {
+          margin-top: 30px;
+        }
+        .about {
+          display: flex;
+          flex-direction: column;
+          gap: 26px;
+        }
+        .about-photo,
+        .about-content {
+          width: 100%;
+          max-width: 100%;
+        }
+        .about-photo img {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+        }
+        .about-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .section-head h2,
+        .services h2,
+        .contact h2 {
+          font-size: clamp(2.2rem, 9vw, 4rem);
+          line-height: 1.08;
+          overflow-wrap: anywhere;
+        }
+        .filters {
+          gap: 8px;
+          margin-bottom: 20px;
+        }
+        .filter {
+          padding: 10px 13px;
+          font-size: 0.9rem;
+        }
+        .gallery {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 9px;
+        }
+        .gallery-item {
+          aspect-ratio: 3 / 4;
+          width: 100%;
+          min-height: 0;
+        }
+        .gallery-meta {
+          font-size: 0.7rem;
+        }
+        .services {
+          display: flex;
+          flex-direction: column;
+        }
+        .service-list,
+        .service-list article {
+          min-width: 0;
+        }
+        .contact-link {
+          overflow-wrap: anywhere;
+        }
+        footer {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+        .lightbox {
+          width: 96vw;
+          max-width: 96vw;
+          max-height: 90dvh;
+          padding: 42px 8px 22px;
+        }
+        .lightbox img {
+          max-height: 68dvh;
+        }
+        .lightbox-prev,
+        .lightbox-next {
+          z-index: 2;
+        }
+      }
+      @media (max-width: 380px) {
+        .site-header,
+        .intro,
+        .about,
+        .portfolio,
+        .services,
+        .contact,
+        footer {
+          padding-left: 14px;
+          padding-right: 14px;
+        }
+        .gallery {
+          gap: 6px;
+        }
+        .filter {
+          padding: 9px 10px;
+          font-size: 0.83rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      /* Freins à l'enregistrement direct (pas une protection absolue). */
+      .gallery-item img,
+      .lightbox img,
+      .about-photo img {
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        -webkit-touch-callout: none;
+        pointer-events: none;
+      }
+      .gallery-item,
+      .lightbox {
+        -webkit-touch-callout: none;
+      }
+
+      /* Mobile : aucune surbrillance bleue, une photo par ligne sans recadrage. */
+      @media (max-width: 700px) {
+        html,
+        body,
+        a,
+        button,
+        img,
+        .gallery-item,
+        .filter {
+          -webkit-tap-highlight-color: transparent;
+        }
+        .gallery {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 14px;
+        }
+        .gallery-item,
+        .gallery-item:nth-child(5n + 2),
+        .gallery-item:nth-child(5n + 3) {
+          display: block;
+          width: 100%;
+          height: auto;
+          min-height: 0;
+          aspect-ratio: auto;
+          background: #242424;
+        }
+        .gallery-item[hidden] {
+          display: none !important;
+        }
+        .gallery-item img {
+          display: block;
+          width: 100%;
+          height: auto;
+          max-height: none;
+          aspect-ratio: auto;
+          object-fit: contain;
+        }
+        .about-photo {
+          background: #242424;
+          height: auto;
+          max-height: none;
+        }
+        .about-photo img {
+          display: block;
+          width: 100%;
+          height: auto;
+          object-fit: contain;
+        }
+        .gallery-item:focus:not(:focus-visible),
+        .filter:focus:not(:focus-visible) {
+          outline: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="#accueil" aria-label="Accueil"
+        >AKERVISION<i>.</i></a
+      >
+      <nav aria-label="Navigation principale">
+        <a href="#apropos">À propos</a><a href="#portfolio">Portfolio</a
+        ><a href="#services">Prestations</a
+        ><a class="nav-contact" href="#contact"
+          >Parlons de votre projet <span>↗</span></a
+        >
+      </nav>
+      <button
+        class="menu-toggle"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+    </header>
+
+    <main id="accueil">
+      <section class="intro" aria-labelledby="titre">
+        <div class="intro-heading">
+          <p class="eyebrow"><span class="line"></span> PORTFOLIO</p>
+          <h1 id="titre">Mon travail</h1>
+          <p class="intro-copy">
+            Je parcours les terrains pour raconter le sport à ma façon.
+          </p>
+          <a class="text-link" href="#portfolio"
+            >Explorer les images <span>↘</span></a
+          >
+        </div>
+        <div class="intro-index">01 <span>/</span> 04</div>
+      </section>
+
+      <section class="about" id="apropos" aria-label="À propos">
+        <div class="about-photo">
+          <img
+            src="PHOTOS/PDP.PNG"
+            alt="Portrait du photographe"
+            onerror="this.style.display = 'none'"
+            loading="lazy"
+          />
+        </div>
+        <div class="about-content">
+          <p class="eyebrow">01 / DERRIÈRE L'OBJECTIF</p>
+          <h2>À propos de moi</h2>
+          <p class="about-role">
+            Photographe de sport · Rouen & partout ailleurs
+          </p>
+          <p>
+            Akervision est mon espace de création audiovisuel. Je travaille
+            principalement autour du sport, tout en restant ouvert à d’autres
+            projets et univers. J’accompagne les particuliers, les
+            professionnels et les organisations dans la création d’images
+            adaptées à leurs besoins. De la préparation à la réalisation,
+            j’accorde de l’importance à chaque détail pour produire des contenus
+            qui leur ressemblent.
+          </p>
+          <div class="about-actions">
+            <a class="button button-primary" href="#contact"
+              >Travaillons ensemble <span>↗</span></a
+            ><a class="button button-outline" href="#posters"
+              >Commander un poster <span>↗</span></a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="portfolio"
+        id="portfolio"
+        aria-labelledby="portfolio-title"
+      >
+        <div class="section-head">
+          <p class="eyebrow">02 / SÉLECTION D'IMAGES</p>
+          <h2 id="portfolio-title">Le travail<span>.</span></h2>
+          <p>
+            Sur la glace, le court, le parquet ou le terrain. Chaque image a son
+            histoire.
+          </p>
+        </div>
+        <div class="filters" role="group" aria-label="Filtrer les photos">
+          <button class="filter active" data-filter="tout" aria-pressed="true">
+            Tout</button
+          ><button class="filter" data-filter="hockey" aria-pressed="false">
+            Hockey</button
+          ><button class="filter" data-filter="mma" aria-pressed="false">
+            MMA</button
+          ><button class="filter" data-filter="tennis" aria-pressed="false">
+            Tennis</button
+          ><button class="filter" data-filter="basket" aria-pressed="false">
+            Basket</button
+          ><button class="filter" data-filter="football" aria-pressed="false">
+            Football
+          </button>
+        </div>
+        <div class="gallery"></div>
+      </section>
+
+      <section class="services" id="services">
+        <div>
+          <p class="eyebrow">03 / CE QUE JE PROPOSE</p>
+          <h2>Des images pour<br /><em>vos ambitions.</em></h2>
+        </div>
+        <div class="service-list">
+          <article>
+            <span>01</span>
+            <div>
+              <h3>Reportage sportif</h3>
+              <p>
+                Matchs, compétitions et événements. Les moments forts et les
+                détails que personne n'avait vus.
+              </p>
+            </div>
+            <b>↗</b>
+          </article>
+          <article>
+            <span>02</span>
+            <div>
+              <h3>Portraits & campagnes</h3>
+              <p>
+                Des visuels pour les clubs, les athlètes et les marques qui
+                veulent marquer les esprits.
+              </p>
+            </div>
+            <b>↗</b>
+          </article>
+          <article id="posters">
+            <span>03</span>
+            <div>
+              <h3>Posters & tirages</h3>
+              <p>
+                Une image coup de cœur ? Écrivez-moi pour un poster ou un tirage
+                personnalisé.
+              </p>
+            </div>
+            <b>↗</b>
+          </article>
+        </div>
+      </section>
+      <section class="contact" id="contact">
+        <p class="eyebrow">04 / CONTACT</p>
+        <h2>On crée quelque<br />chose <em>ensemble ?</em></h2>
+        <p>
+          Un match à couvrir, une campagne à imaginer ou un poster à commander :
+          racontez-moi votre projet.
+        </p>
+        <a
+          href="mailto:vincent.breon.pro@gmail.com?subject=Projet photo akervision"
+          class="contact-link"
+          >Parlons de votre projet <span>↗</span></a
+        >
+      </section>
+    </main>
+    <footer>
+      <a class="wordmark" href="#accueil">VINCENT<span>BREON</span><i>.</i></a
+      ><span>© 2026 Vincent Breon — Photographie sportive</span
+      ><a href="#accueil">Retour en haut ↑</a>
+    </footer>
+    <dialog class="lightbox" aria-label="Photo agrandie">
+      <button class="lightbox-close" aria-label="Fermer">×</button
+      ><button class="lightbox-prev" aria-label="Photo précédente">←</button
+      ><img alt="" /><button class="lightbox-next" aria-label="Photo suivante">
+        →
+      </button>
+      <p></p>
+    </dialog>
+    <script>
+      const gallery = document.querySelector(".gallery");
+      const photos = [
+        ...Array.from({ length: 35 }, (_, i) => ({
+          category: "hockey",
+          src: `images/hockey-${String(i + 1).padStart(2, "0")}.jpg`,
+          title: `Hockey — photo ${i + 1}`,
+        })),
+        ...["basket", "mma", "tennis", "football"].flatMap((category) =>
+          Array.from(
+            {
+              length:
+                category === "mma"
+                  ? 25
+                  : category === "basket"
+                    ? 15
+                    : category === "football"
+                      ? 8
+                      : category === "tennis"
+                        ? 15
+                        : 2,
+            },
+            (_, i) => ({
+              category,
+              src: `images/${category}-${String(i + 1).padStart(2, "0")}.jpg`,
+              title: `${category.toUpperCase()} — photo ${i + 1}`,
+            }),
+          ),
+        ),
+      ];
+      photos.forEach((photo, i) => {
+        const button = document.createElement("button");
+        button.className = "gallery-item";
+        button.dataset.category = photo.category;
+        button.dataset.title = photo.title;
+        button.setAttribute("aria-label", `Ouvrir ${photo.title}`);
+        const img = document.createElement("img");
+        img.src = photo.src;
+        img.alt = photo.title;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.addEventListener("error", () => button.classList.add("missing"));
+        const meta = document.createElement("span");
+        meta.className = "gallery-meta";
+        meta.textContent = photo.category.toUpperCase() + " ";
+        const num = document.createElement("b");
+        num.textContent = String(i + 1).padStart(2, "0");
+        meta.appendChild(num);
+        button.append(img, meta);
+        gallery.appendChild(button);
+      });
+      const filters = document.querySelectorAll(".filter");
+      const items = [...document.querySelectorAll(".gallery-item")];
+      // Sélection aléatoire de 5 photos maximum par sport pour « Tout ».
+      // Les onglets individuels continuent d'afficher toutes leurs photos.
+      function shuffle(array) {
+        const result = [...array];
+        for (let i = result.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [result[i], result[j]] = [result[j], result[i]];
+        }
+        return result;
+      }
+      let allSelection = new Set();
+      function mixAllSports() {
+        const categories = ["hockey", "basket", "mma", "tennis", "football"];
+        const selected = categories.flatMap((category) =>
+          shuffle(
+            items.filter((item) => item.dataset.category === category),
+          ).slice(0, 5),
+        );
+        const mixed = shuffle(selected);
+        allSelection = new Set(mixed);
+        mixed.forEach((item) => gallery.appendChild(item));
+      }
+      function applyFilter(category) {
+        if (category === "tout") mixAllSports();
+        items.forEach((item) => {
+          item.hidden =
+            category === "tout"
+              ? !allSelection.has(item)
+              : item.dataset.category !== category;
+        });
+      }
+      applyFilter("tout");
+      filters.forEach((button) =>
+        button.addEventListener("click", () => {
+          filters.forEach((b) => {
+            b.classList.toggle("active", b === button);
+            b.setAttribute("aria-pressed", String(b === button));
+          });
+          applyFilter(button.dataset.filter);
+          // Revenir au début des photos après chaque changement d’onglet.
+          gallery.scrollIntoView({ behavior: "smooth", block: "start" });
+        }),
+      );
+      const dialog = document.querySelector(".lightbox");
+      const modalImage = dialog.querySelector("img");
+      let selected = 0;
+      function visibleItems() {
+        return [...gallery.querySelectorAll(".gallery-item")].filter(
+          (item) => !item.hidden && item.querySelector("img").naturalWidth,
+        );
+      }
+      function display(index) {
+        const list = visibleItems();
+        if (!list.length) return;
+        selected = (index + list.length) % list.length;
+        const item = list[selected];
+        modalImage.src = item.querySelector("img").src;
+        modalImage.alt = item.querySelector("img").alt;
+        dialog.querySelector("p").textContent =
+          item.dataset.title + " — " + item.dataset.category.toUpperCase();
+      }
+      items.forEach((item) =>
+        item.addEventListener("click", () => {
+          if (!item.querySelector("img").naturalWidth) return;
+          display(visibleItems().indexOf(item));
+          dialog.showModal();
+        }),
+      );
+      dialog.querySelector(".lightbox-close").onclick = () => dialog.close();
+      dialog.querySelector(".lightbox-prev").onclick = () =>
+        display(selected - 1);
+      dialog.querySelector(".lightbox-next").onclick = () =>
+        display(selected + 1);
+      dialog.addEventListener("click", (e) => {
+        if (e.target === dialog) dialog.close();
+      });
+      dialog.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") display(selected - 1);
+        if (e.key === "ArrowRight") display(selected + 1);
+      });
+      const toggle = document.querySelector(".menu-toggle");
+      toggle.onclick = () => {
+        let open = document
+          .querySelector(".site-header")
+          .classList.toggle("open");
+        toggle.setAttribute("aria-expanded", open);
+        toggle.textContent = open ? "×" : "☰";
+      };
+      document.querySelectorAll(".site-header nav a").forEach((a) =>
+        a.addEventListener("click", () => {
+          document.querySelector(".site-header").classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.textContent = "☰";
+        }),
+      );
+      document
+        .querySelectorAll(".gallery-item img, .about-photo img")
+        .forEach((img) =>
+          img.addEventListener("error", () =>
+            img.closest(".gallery-item, .about-photo").classList.add("missing"),
+          ),
+        );
+
+      // Décourage le téléchargement direct sans bloquer la navigation du site.
+      document
+        .querySelectorAll(".gallery, .lightbox, .about-photo")
+        .forEach((area) => {
+          area.addEventListener("contextmenu", (event) =>
+            event.preventDefault(),
+          );
+          area.addEventListener("dragstart", (event) => event.preventDefault());
+        });
+      document
+        .querySelectorAll(".gallery-item img, .lightbox img, .about-photo img")
+        .forEach((img) => img.setAttribute("draggable", "false"));
+    </script>
+  </body>
+</html>
